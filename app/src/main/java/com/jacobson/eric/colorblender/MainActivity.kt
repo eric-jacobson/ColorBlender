@@ -4,9 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu
-import android.view.MenuItem
+import android.support.v7.app.AppCompatActivity
 import android.widget.SeekBar
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -63,12 +61,12 @@ class MainActivity : AppCompatActivity() {
                 colorOneView.setBackgroundColor(Color.rgb(colorOneVals[0], colorOneVals[1], colorOneVals[2]))
             }
             if (data.hasExtra("color_2")) {
-                val colorOne = data.getStringExtra("color_2")
-                val item = colorOne.split(" ")
+                val colorTwo = data.getStringExtra("color_2")
+                val item = colorTwo.split(" ")
                 colorTwoVals[0] = item[0].toInt()
                 colorTwoVals[1] = item[1].toInt()
                 colorTwoVals[2] = item[2].toInt()
-                colorOneView.setBackgroundColor(Color.rgb(colorTwoVals[0], colorTwoVals[1], colorTwoVals[2]))
+                colorTwoView.setBackgroundColor(Color.rgb(colorTwoVals[0], colorTwoVals[1], colorTwoVals[2]))
             }
         }
     }
