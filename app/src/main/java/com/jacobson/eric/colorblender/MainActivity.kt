@@ -13,8 +13,8 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity() {
 
     private var REQUEST_CODE = 10
-    var colorOneVals: IntArray = intArrayOf(0, 0, 0)
-    var colorTwoVals: IntArray = intArrayOf(0, 0, 0)
+    private var colorOneVals: IntArray = intArrayOf(0, 0, 0)
+    private var colorTwoVals: IntArray = intArrayOf(0, 0, 0)
 
 //    var redBlendVal = 128
 //    var greenBlendVal = 128
@@ -42,9 +42,32 @@ class MainActivity : AppCompatActivity() {
 
         blendSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+                val blendedColor:IntArray = intArrayOf(0, 0, 0)
+                val leftColor:IntArray = intArrayOf(0, 0, 0)
+                val rightColor:IntArray = intArrayOf(0, 0, 0)
+                val max = colorOneVals
+                val min = colorTwoVals
+                when (progress) {
+                    0 -> colorBlendView.setBackgroundColor(Color.rgb(colorOneVals[0], colorOneVals[1], colorOneVals[2]))
+                    100 -> colorBlendView.setBackgroundColor(Color.rgb(colorTwoVals[0], colorTwoVals[1], colorTwoVals[2]))
+                    in 1..99 -> {
+                        rightColor[0] = min[0] * (100 - progress)
+                        rightColor[1] = min[1] * (100 - progress)
+                        rightColor[2] = min[2] * (100 - progress)
 
+                        leftColor[0] = max[0] * progress
+                        leftColor[1] = max[1] * progress
+                        leftColor[2] = max[2] * progress
+
+                        blendedColor[0] = leftColor[0] + rightColor[0]
+                        blendedColor[1] = leftColor[1] + rightColor[1]
+                        blendedColor[2] = leftColor[2] + rightColor[2]
+
+
+                        colorBlendView.setBackgroundColor(Color.rgb(blendedColor[0], blendedColor[1], blendedColor[2]))
+                    }
+                }
+            }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
